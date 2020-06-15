@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://entities/player/attack_skill_animation_player_template.gd" type="Script" id=1]
+[ext_resource path="res://entities/player/skills/side_tilt/side_tilt.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 27.5917, 4.20264 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10.9265, 6.62488 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8.46882, 14.7861 )
+
+[sub_resource type="Animation" id=4]
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("player_hitbox/hitbox1:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("player_hitbox/hitbox2:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("player_hitbox/hitbox3:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[node name="skill_side_tilt" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="player_hitbox" type="Area2D" parent="."]
+
+[node name="hitbox1" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2( 3.84373, -19.2172 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="hitbox2" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2( 24.0764, 5.32286 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="hitbox3" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2( 27.4853, -7.92029 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="HitboxPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/attack = SubResource( 4 )
+script = ExtResource( 1 )
+[connection signal="animation_finished" from="HitboxPlayer" to="." method="hitbox_animation_finished" flags=6]
